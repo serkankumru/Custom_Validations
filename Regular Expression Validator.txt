@@ -1,0 +1,115 @@
+E-posta                    \w+([-+.’]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*
+
+Telefon numarası        ((\(\d{3}\) ?)|(\d{3}-))?\d{3}-\d{4}
+
+URL                      http://([\w-]+\.) + [\w-] + (/ [\w-./?% & =] *)?
+
+
+
+
+[Display(Name = "İsim")]
+[StringLength(60, MinimumLength = 3,ErrorMessage = "{0} {1} ila {2} karakter arasında olmalıdır.")]
+[Required(ErrorMessage = "Lütfen adınızı giriniz.")]
+public string Name { get; set; }
+
+[Display(Name = "Soyisim")]
+[StringLength(60, MinimumLength = 3, ErrorMessage = "{0} {1} ila {2} karakter arasında olmalıdır.")]
+[Required(ErrorMessage = "Lütfen soyadınızı giriniz.")]
+public string LastName { get; set; }
+
+[Display(Name = "Telefon Numarası")]
+[DataType(DataType.PhoneNumber)]
+[StringLength(15, MinimumLength = 10, ErrorMessage = "{0} {1} ila {2} karakter arasında olmalıdır.")]
+[Required(ErrorMessage = "Lütfen telefon numaranızı giriniz.")]
+[RegularExpression(@"^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$",ErrorMessage = "Telefon Formatı Geçersiz")]
+public string PhoneNumber { get; set; }
+
+[Required(ErrorMessage = "Email boş bırakılamaz")]
+[RegularExpression(@"^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}" +@"\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\" +@".)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$",ErrorMessage = "Email adresi geçersiz")]
+[Display(Name = "E-Posta")]
+public string Email { get; set; }
+
+[Display(Name = "Açıklama")]
+[StringLength(250, MinimumLength = 20, ErrorMessage = "{0} {1} ila {2} karakter arasında olmalıdır.")]
+[Required(ErrorMessage = "Mesajın konusu boş geçilemez.")]
+public string Description { get; set; }
+
+[Remote(action: "VerifyEmail", controller: "Validation")]
+public string Email2 { get; set; }
+
+
+
+
+
+        [Required]
+        [StringLength(50, ErrorMessage = "Adınız en falza 50 karakter olabilir", MinimumLength = 3)]
+        public string FirstName { get; set; }
+        [Required]
+        [StringLength(50, ErrorMessage = "Soyadınız en falza 50 karakter olabilir", MinimumLength = 3)]
+        public string LastName { get; set; }
+        [Required]
+        [EmailAddress]
+        public string Email { get; set; }
+        [Required]
+        [StringLength(15, ErrorMessage = "Adınız en falza 15 karakter olabilir", MinimumLength = 6)]
+        [RegularExpression(@"/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&.])[A-Za-z\d$@$!%*?&.]{6, 15}/",
+            ErrorMessage ="En az 1 büyük, 1 küçük, 1 özel karakter ve en falza 15 karakter giriniz.")]
+        public string Password { get; set; }
+        [Required]
+        [Compare("Password",ErrorMessage ="Şifre bilginizi kontrol ediniz.")]
+        public string ConfirmPassword { get; set; }
+        [Required]
+        [Range(18,100,ErrorMessage ="Yaş aralığı 18 ile 100 arasındadır.")]
+        public int BirthYear { get; set; }
+        [CreditCard]
+        public string CreditCard { get; set; }
+        [Url]
+        public string FacebookProfileUrl { get; set; }
+        [Required]
+        [Phone]
+        public string Phone { get; set; }
+
+
+
+
+
+
+Required
+Bu özellik, değerin zorunlu olduğunu ve atlanamadığını belirtir.
+Syntax:[Required(ErrorMessage=”Please enter name”),MaxLength(30)]
+
+
+DataType:Bu özellik modelin veri tipini belirlemek için kullanılır.
+Syntax:[DataType(DataType.Text)]
+
+Range:Bu özelliği kullanarak iki sayı arasında bir aralık ayarlayabiliriz.
+Syntax:[Range(100,500,ErrorMessage=”Lütfen uygun değer giriniz.“)]
+
+Compare:Bu özelliği kullanarak giriş yapılan alan ile farklı bir alanın değerlerinin aynı olup olmadığı kontrol edilir.
+Syntax:[Compare(“Password”,ErrorMessage =”Şifre bilginizi kontrol ediniz.”)]
+
+Tırnak içinde yazılan ilk alanda eşleştirilecek alan belirtilen
+
+
+StringLength:Bu özelliği kullanarak stringin maksimum ve minimum uzunluğunu belirleyebiliriz.
+Syntax:[StringLength(30,ErrorMessage=”30 karakterden fazla giremezsiniz!”)]
+
+DisplayName:Bu özelliği kullanarak, görünümde görüntülenecek özellik adını belirtebiliriz.
+Syntax:[Display(Name=”Öğrenci Adı”)]
+
+MaxLength:Bu özelliği kullanarak maksimum özellik uzunluğu belirleyebilirsiniz.
+Syntax:[MaxLength(3)]
+
+
+Bind:Bu özellik, model bağlama için dahil edilecek veya hariç tutulacak alanları belirtir..
+Syntax:[Bind(Exclude = “StudentID”)]
+
+DisplayFormat:Bu özellik, niteliğe göre belirtilen biçimde tarih belirlememize izin verir.
+Syntax:[DisplayFormat(DataFormatString = “{0:dd.MM.yyyy}”)]
+
+RegularExpression:Regex formatı kullanılabilir Örn: Email ID.
+Syntax:[RegularExpression(@”^\w+([-+.’]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$”, ErrorMessage = “Email is not valid.”)]
+
+
+
+
